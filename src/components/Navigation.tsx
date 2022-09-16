@@ -1,20 +1,29 @@
-import { Link } from "react-router-dom"
+import styled from "@emotion/styled";
+import { List as MuiList, ListItem as MuiListItem } from "@mui/material";
+import { Link } from "react-router-dom";
+
+const List = styled(MuiList)({
+  display: 'flex',
+	flexDirection: 'row',
+	gap: 2,
+});
+
+const ListItem = styled(MuiListItem)({
+	width: 'auto',
+})
 
 const Navigation = () => {
-	return (
-		<div>
-      <nav>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/history">History</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
-	)
-}
+
+  return (
+    <List>
+      <ListItem>
+        <Link to="/">Home</Link>
+      </ListItem>
+      <ListItem>
+        <Link to="/history">History</Link>
+      </ListItem>
+    </List>
+  );
+};
 
 export default Navigation;
