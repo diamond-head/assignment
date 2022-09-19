@@ -1,8 +1,9 @@
-interface Repo {
+export interface Repo {
 	id: string;
 	name: string;
 	description?: string;
 	git_url: string; 
+	html_url: string;
 }
 
 export interface User {
@@ -15,6 +16,6 @@ export interface User {
 }
 
 export interface Term {
-	value: string,
+	username: string,
 	timeStamp: number,
 }

@@ -1,33 +1,42 @@
-import { Button, TextField as MuiTextField } from "@mui/material";
-import styled from "@emotion/styled";
 import { useState } from "react";
-import { Box } from "@mui/system";
+import {
+  Button,
+  TextField as MuiTextField,
+  CircularProgress
+} from "@mui/material";
+import SearchIcon from '@mui/icons-material/Search';
+import styled from "@emotion/styled";
 
 interface SearchFormProps {
   onSearch: (value: string) => void;
+  loading: boolean;
+  searchString?: string;
 }
+
+const FormWrapper = styled.div`
+  display: flex;
+  gap: 8px;
+`
 
 const TextField = styled(MuiTextField)({
   width: "100%",
   maxWidth: 700,
 });
 
-const SearchForm = ({ onSearch }: SearchFormProps) => {
-  const [searchValue, setSearchValue] = useState("");
+const SearchForm = ({ onSearch, loading, searchString }: SearchFormProps) => {
+  const [searchValue, setSearchValue] = useState(searchString || "");
 
   return (
-    <div>
+    <FormWrapper>
       <TextField
-        label="Search Text"
+        label="Search Username"
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}
       />
-      <Box mt={1}>
-        <Button variant="contained" onClick={() => searchValue && onSearch(searchValue)}>
-          Search
-        </Button>
-      </Box>
-    </div>
+      <Button disabled={loading} variant="contained" onClick={() => searchValue && onSearch(searchValue)}>
+        {loading ? <CircularProgress color="inherit" /> : <SearchIcon />}
+      </Button>
+    </FormWrapper>
   );
 };
 

@@ -1,29 +1,54 @@
 import styled from "@emotion/styled";
-import { List as MuiList, ListItem as MuiListItem } from "@mui/material";
-import { Link } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Box,
+  Button as MuiButton
+} from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
 
-const List = styled(MuiList)({
-  display: 'flex',
-	flexDirection: 'row',
-	gap: 2,
-});
-
-const ListItem = styled(MuiListItem)({
-	width: 'auto',
+const Link = styled(RouterLink)({
+  textDecoration: 'none'
 })
 
+const Button = styled(MuiButton)({
+  color: '#fff'
+})
+
+interface INavItem {
+  path: string;
+  text: string
+}
+
 const Navigation = () => {
+  const navItems: Array<INavItem> = [
+    { path: '/', text: 'Home' },
+    { path: '/history', text: 'History' }
+  ]
 
   return (
-    <List>
-      <ListItem>
-        <Link to="/">Home</Link>
-      </ListItem>
-      <ListItem>
-        <Link to="/history">History</Link>
-      </ListItem>
-    </List>
-  );
+    <AppBar component="nav">
+      <Toolbar>
+        <Typography
+          variant="h6"
+          component="div"
+          sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+        >
+          Demo app
+        </Typography>
+        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+          {navItems.map((item: INavItem, index: number) => (
+            <Link to={item.path} key={item.text + index}>
+              <Button>
+                {item.text}
+              </Button>
+            </Link>
+          ))}
+        </Box>
+      </Toolbar>
+    </AppBar>
+  )
 };
 
 export default Navigation;

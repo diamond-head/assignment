@@ -1,44 +1,43 @@
-import { Box } from "@mui/system";
 import { useState } from "react";
-import { Term, User } from "../common/interfaces";
+import { Box as MuiBox } from "@mui/system";
+import styled from "@emotion/styled";
+import { useSearchParams } from 'react-router-dom';
+
+import { User } from "../common/interfaces";
 import SearchForm from "../components/SearchForm";
 import UserDetails from "../components/UserDetails";
+import { requestGithubUserDetails } from "../services/github";
+
+const Box = styled(MuiBox)({
+  marginTop: 86,
+  textAlign: 'center',
+  width: '100%',
+  padding: 16
+})
 
 const Home = () => {
+  const [searchParams] = useSearchParams()
   const [user, setUser] = useState<User | undefined>();
-  const [serching, setSearching] = useState(false);
+  const [searching, setSearching] = useState<boolean>(false);
 
   const fetchResults = async (value: string) => {
     setSearching(true);
-    try {
-      const response = await fetch("http://api.github.com/users/" + value);
-      const json = await response.json();
-
-      if (json.repos_url) {
-        const repoResponse = await fetch(json.repos_url);
-        json.repos = await repoResponse.json();
-      }
-      setUser(json);
-      const termsInString = localStorage.getItem("terms");
-      if (!termsInString) {
-        localStorage.setItem(
-          "terms",
-          JSON.stringify([{ value, timeStamp: Date.now() } as Term])
-        );
-      } else {
-        const terms = JSON.parse(termsInString) as Term[];
-        terms.push({ value, timeStamp: Date.now() });
-        localStorage.setItem("terms", JSON.stringify(terms));
-      }
-    } catch (e) {
-      console.log(e);
+    const response = await requestGithubUserDetails({ username: value })
+    if (response) {
+      setUser(response)
     }
     setSearching(false);
   };
 
+  const usernameFromQS: string | null = searchParams.get('username')
+
   return (
     <Box mx={2}>
-      <SearchForm onSearch={(value: string) => fetchResults(value)} />
+      <SearchForm
+        onSearch={(value: string) => fetchResults(value)}
+        loading={searching}
+        {...(usernameFromQS ? { searchString: usernameFromQS } : {})}
+      />
       {user && <UserDetails user={user} />}
     </Box>
   );
