@@ -27,3 +27,8 @@ export const ListItem = styled(MuiListItem)({
 	padding: 8,
 	cursor: 'pointer'
 })
+
+export const ErrorWrapper = styled.div`
+  text-align: center;
+  color: tomato;
+`

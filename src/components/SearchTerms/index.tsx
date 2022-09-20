@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material"
-import { Wrapper, List, HeadListItem, ListItem } from "./search-terms.styled";
+import { Wrapper, List, HeadListItem, ListItem, ErrorWrapper } from "./search-terms.styled";
 import { useNavigate } from "react-router-dom";
 import { Term } from "../../interfaces"
 
@@ -20,13 +20,20 @@ const SearchedTerms = ({ terms }: SearchedTermsProps) => {
 
   return (
 		<Wrapper>
+			<ErrorWrapper>
+				{terms.length === 0 && (
+					'No search history'
+				)}
+			</ErrorWrapper>
 			<List>
-				<Grid container>
-					<HeadListItem>
-						<Grid item xs={6}>Timestamp</Grid>
-						<Grid item xs={6}>Username</Grid>
-					</HeadListItem>
-				</Grid>
+				{terms.length > 0 && (
+					<Grid container>
+						<HeadListItem>
+							<Grid item xs={6}>Timestamp</Grid>
+							<Grid item xs={6}>Username</Grid>
+						</HeadListItem>
+					</Grid>
+				)}
 				<Grid container>
 					{terms.map((term: Term) => (
 						<ListItem onClick={() => handleRedirectSearch(term.username)} key={term.timeStamp}>

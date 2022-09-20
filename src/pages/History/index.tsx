@@ -1,6 +1,5 @@
 import { useMemo } from "react";
-import { Box } from "@mui/material";
-import { Heading } from "./history.styled";
+import { Heading, Box } from "./history.styled";
 import { Term } from "../../interfaces";
 import SearchedTerms from "../../components/SearchTerms";
 
@@ -12,7 +11,7 @@ const History = () => {
   }, []);
 
   return (
-    <Box mt={9} mx={2}>
+    <Box>
       <Heading>
         Search History
       </Heading>
