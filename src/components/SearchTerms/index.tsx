@@ -1,40 +1,11 @@
-import {
-	List as MuiList,
-	ListItem as MuiListItem,
-	Grid
-} from "@mui/material"
-import styled from '@emotion/styled'
+import { Grid } from "@mui/material"
+import { Wrapper, List, HeadListItem, ListItem } from "./search-terms.styled";
 import { useNavigate } from "react-router-dom";
-import { Term } from "../common/interfaces"
+import { Term } from "../../interfaces"
 
 interface SearchedTermsProps {
 	terms: Term[];
 }
-
-const List = styled(MuiList)({
-	display: 'flex',
-	flexDirection: 'column',
-	gap: 8
-})
-
-const Wrapper = styled.div`
-	margin-top: 8px;
-  border: 1px solid #d0d7de;
-	padding: 16px;
-`
-
-const HeadListItem = styled(MuiListItem)({
-	padding: 8,
-	background: '#57606a',
-	color: '#fff'
-})
-
-const ListItem = styled(MuiListItem)({
-	borderBottom: '1px solid #d0d7de',
-	padding: 8,
-	cursor: 'pointer'
-})
-
 
 const SearchedTerms = ({ terms }: SearchedTermsProps) => {
 	const navigate = useNavigate()

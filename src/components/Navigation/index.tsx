@@ -1,25 +1,15 @@
 import React from 'react'
-import styled from "@emotion/styled";
 import {
   AppBar,
   Toolbar,
   Typography,
   Box,
-  Button as MuiButton,
-} from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
-
-const Link = styled(RouterLink)({
-  textDecoration: 'none'
-})
-
-const Button = styled(MuiButton)({
-  color: '#fff'
-})
+} from "@mui/material"
+import { Link, Button } from './navigation.styled'
 
 interface INavItem {
   path: string;
-  text: string
+  text: string;
 }
 
 const navItems: Array<INavItem> = [

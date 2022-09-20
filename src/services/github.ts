@@ -1,4 +1,4 @@
-import { Term } from "../common/interfaces";
+import { Term } from "../interfaces";
 
 export async function requestGithubUserDetails ({ username }: { username: string }) {
   if (!username || username === '') {

@@ -1,30 +1,13 @@
 import { useCallback, useState } from "react";
-import {
-  Button,
-  TextField as MuiTextField,
-  CircularProgress
-} from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
-import styled from "@emotion/styled";
+import { TextField, FormWrapper } from './search-form.styled'
 
 interface SearchFormProps {
   onSearch: (value: string) => void;
   loading: boolean;
   searchString?: string;
 }
-
-const FormWrapper = styled.div`
-  display: flex;
-  gap: 8px;
-`
-
-const TextField = styled(MuiTextField)({
-  width: "100%",
-  maxWidth: 700,
-  '@media (max-width: 420px)': {
-    maxWidth: 320
-  }
-});
 
 const SearchForm = ({ onSearch, loading, searchString }: SearchFormProps) => {
   const [searchValue, setSearchValue] = useState<string>(searchString || "");

@@ -1,15 +1,8 @@
 import { useMemo } from "react";
 import { Box } from "@mui/material";
-import styled from '@emotion/styled'
-
-import { Term } from "../common/interfaces";
-import SearchedTerms from "../components/SearchTerms";
-
-const Heading = styled.div`
-  padding-top: 8px;
-  font-weight: bold;
-  font-size: 20px;
-`
+import { Heading } from "./history.styled";
+import { Term } from "../../interfaces";
+import SearchedTerms from "../../components/SearchTerms";
 
 const History = () => {
   const terms: Term[] = useMemo(() => {

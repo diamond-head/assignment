@@ -1,27 +1,11 @@
-import { useCallback, useState } from "react";
-import { Box as MuiBox } from "@mui/system";
-import styled from "@emotion/styled";
+import { useState } from "react";
 import { useSearchParams } from 'react-router-dom';
+import { Box, ErrorWrapper } from "./home.styled";
 
-import { User } from "../common/interfaces"
-import SearchForm from "../components/SearchForm"
-import UserDetails from "../components/UserDetails"
-import { requestGithubUserDetails } from "../services/github"
-
-const Box = styled(MuiBox)({
-  marginTop: 86,
-  textAlign: 'center',
-  width: '100%',
-  padding: 16
-})
-
-const ErrorWrapper = styled.div`
-  margin-top: 24px;
-  color: tomato;
-  font-weight: 500;
-  font-size: 16px;
-  text-align: center;
-`
+import { User } from "../../interfaces"
+import SearchForm from "../../components/SearchForm"
+import UserDetails from "../../components/UserDetails"
+import { requestGithubUserDetails } from "../../services/github"
 
 const Home = () => {
   const [searchParams] = useSearchParams()
