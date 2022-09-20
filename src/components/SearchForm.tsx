@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import {
   Button,
   TextField as MuiTextField,
@@ -21,19 +21,40 @@ const FormWrapper = styled.div`
 const TextField = styled(MuiTextField)({
   width: "100%",
   maxWidth: 700,
+  '@media (max-width: 420px)': {
+    maxWidth: 320
+  }
 });
 
 const SearchForm = ({ onSearch, loading, searchString }: SearchFormProps) => {
-  const [searchValue, setSearchValue] = useState(searchString || "");
+  const [searchValue, setSearchValue] = useState<string>(searchString || "");
+  const [errorState, setErrorState] = useState<string | null>(null)
+
+  const handleInputChange = ({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchValue(value);
+    !!value && setErrorState(null)
+  }
+
+  const handleOnSearch = useCallback((): void => {
+    if (!searchValue || searchValue === '') {
+      setErrorState('Please enter username')
+      return
+    }
+    onSearch(searchValue)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue])
 
   return (
     <FormWrapper>
       <TextField
+        error={!!errorState}
+        helperText={errorState}
         label="Search Username"
         value={searchValue}
-        onChange={(e) => setSearchValue(e.target.value)}
+        onChange={handleInputChange}
+        size="small"
       />
-      <Button disabled={loading} variant="contained" onClick={() => searchValue && onSearch(searchValue)}>
+      <Button size="small" disabled={loading} variant="contained" onClick={handleOnSearch}>
         {loading ? <CircularProgress color="inherit" /> : <SearchIcon />}
       </Button>
     </FormWrapper>

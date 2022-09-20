@@ -29,6 +29,6 @@ export async function requestGithubUserDetails ({ username }: { username: string
 
     return json
   } catch (e) {
-    console.error(e);
+    throw e
   }
 }

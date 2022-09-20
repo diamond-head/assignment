@@ -1,10 +1,11 @@
+import React from 'react'
 import styled from "@emotion/styled";
 import {
   AppBar,
   Toolbar,
   Typography,
   Box,
-  Button as MuiButton
+  Button as MuiButton,
 } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
@@ -21,33 +22,35 @@ interface INavItem {
   text: string
 }
 
-const Navigation = () => {
-  const navItems: Array<INavItem> = [
-    { path: '/', text: 'Home' },
-    { path: '/history', text: 'History' }
-  ]
+const navItems: Array<INavItem> = [
+  { path: '/', text: 'Home' },
+  { path: '/history', text: 'History' }
+]
 
+const Navigation = () => {
   return (
-    <AppBar component="nav">
-      <Toolbar>
-        <Typography
-          variant="h6"
-          component="div"
-          sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-        >
-          Demo app
-        </Typography>
-        <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-          {navItems.map((item: INavItem, index: number) => (
-            <Link to={item.path} key={item.text + index}>
-              <Button>
-                {item.text}
-              </Button>
-            </Link>
-          ))}
-        </Box>
-      </Toolbar>
-    </AppBar>
+    <React.Fragment>
+      <AppBar component="nav">
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, display: { sm: 'block' } }}
+          >
+            Demo app
+          </Typography>
+          <Box sx={{ display: { sm: 'block' } }}>
+            {navItems.map((item: INavItem, index: number) => (
+              <Link to={item.path} key={item.text + index}>
+                <Button>
+                  {item.text}
+                </Button>
+              </Link>
+            ))}
+          </Box>
+        </Toolbar>
+      </AppBar>
+    </React.Fragment>
   )
 };
 
